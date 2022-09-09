@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<style>
+   table {
+      text-align: center;
+      width: 700px;
+   }
+
+   table#len {
+      width: 1130px;
+      margin-top: 24px;
+      background-color: aquamarine;
+   }
+
+   th {
+      width: 90px;
+   }
+
+   fieldset {
+      width: 700px;
+   }
+
+   h1 {
+      background-color: aqua;
+      text-align: center;
+   }
+
+   h2 {
+      text-align: center;
+   }
+
+   table#index {
+      background-color: aliceblue;
+   }
+
+   img {
+      width: 156px;
+      height: 144px;
+   }
+</style>
+
+<body>
+   <h1>QUẢN LÝ TRƯỜNG HỌC</h1>
+   <table border="1px" id="index">
+      <tr>
+         <td colspan="2">Thông Tin Học Viên</td>
+      </tr>
+      <tr>
+         <td>ID</td>
+         <td><input type="number" id="id"></td>
+      </tr>
+      <tr>
+         <td>Tên Trường</td>
+         <td><input type="text" id="name"></td>
+      </tr>
+      <tr>
+         <td>Địa Chỉ</td>
+         <td><input type="text" id="address"></td>
+      </tr>
+      <tr>
+         <td>Số Điện Thoại</td>
+         <td><input type="text" id="phone"></td>
+      </tr>
+      <tr>
+         <td>Cấp Học</td>
+         <td><input type="text" id="ch"></td>
+      </tr>
+      <tr>
+         <td>Ảnh</td>
+         <td><input type="text" id="image"></td>
+      </tr>
+      <tr>
+         <td>Tùy Chỉnh</td>
+         <td><button style="background-color: rgb(20, 223, 20);" onclick="add()">Add</button><div id="edit"></div></td>
+      </tr>
+   </table>
+   <h2>DANH SÁCH TRƯỜNG HỌC</h2>
+   <table id="len"></table>
+   <div id="edit"></div>
+   <script>
+      var arr = [];
+      function add() {
+         arr.push([document.getElementById('id').value, document.getElementById('name').value, document.getElementById('address').value, document.getElementById('phone').value, document.getElementById('ch').value, document.getElementById('image').value]);
+         console.log(arr);
+         clear()
+         show();
+      }
+      function show() {
+         var table = '';
+         table += '<tr class="tr">'
+         table += '<th>' + 'ID' + '</th>'
+         table += '<th>' + 'Tên Trường' + '</th>'
+         table += '<th>' + 'Địa Chỉ' + '</th>'
+         table += '<th>' + 'Số Điện Thoại' + '</th>'
+         table += '<th>' + 'Cấp Học' + '</th>'
+         table += '<th>' + 'Ảnh' + '</th>'
+         table += '<th>' + 'Tùy Chọn' + '</th>'
+         table += '</tr>'
+         for (var i = 0; i < arr.length; i++) {
+            table += '<tr class="tr">'
+            for (var j = 0; j < 5; j++) {
+               table += '<td>' + arr[i][j] + '</td>'
+            }
+            table += '<td><img src="' + arr[i][5] + '" alt=""></td>'
+            table += '<td> <button style="background-color: yellow;" onclick="click_edit(' + i + ')">Edit</button><button style="background-color: red;" onclick="click_delete(' + i + ')">Delete</button></td>'
+            table += '</tr>'
+         }
+         document.getElementById("len").innerHTML = table;
+      }
+
+      function click_delete(x) {
+         arr.splice(x, 1)
+         show();
+      }
+      function click_edit(x) {
+         // console.log(arr[x]);
+         var a = '<button style="background-color: rgb(241, 245, 13);" onclick="click_save('+x+')">Save</button>';
+         document.getElementById('edit').innerHTML=a;
+         document.getElementById('id').value = arr[x][0];
+         document.getElementById('name').value = arr[x][1];
+         document.getElementById('address').value = arr[x][2];
+         document.getElementById('phone').value = arr[x][3];
+         document.getElementById('ch').value = arr[x][4];
+         document.getElementById('image').value = arr[x][5];
+      }
+
+      function click_save(x) {
+         console.log(arr[x]);
+         arr[x][0] = document.getElementById('id').value;
+         arr[x][1] = document.getElementById('name').value;
+         arr[x][2] = document.getElementById('address').value;
+         arr[x][3] = document.getElementById('phone').value;
+         arr[x][4] = document.getElementById('ch').value;
+         arr[x][5] = document.getElementById('image').value;
+         clear();
+         show();
+      }
+
+      function clear() {
+         document.getElementById('id').value = '';
+         document.getElementById('name').value = '';
+         document.getElementById('address').value = '';
+         document.getElementById('phone').value = '';
+         document.getElementById('ch').value = '';
+         document.getElementById('image').value = '';
+      }
+   </script>
+</body>
+</html>
